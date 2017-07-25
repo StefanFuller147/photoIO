@@ -1,0 +1,62 @@
+package pictureObj;
+
+public class Picture {
+	private int Alpha;
+	private int Red;
+	private int Green;
+	private int Blue;
+	private int xCoordinate;
+	private int yCoordinate;
+	public int getAlpha() {
+		return Alpha;
+	}
+	public void setAlpha(int alpha) {
+		Alpha = alpha;
+	}
+	public int getRed() {
+		return Red;
+	}
+	public void setRed(int red) {
+		Red = red;
+	}
+	public int getGreen() {
+		return Green;
+	}
+	public void setGreen(int green) {
+		Green = green;
+	}
+	public int getBlue() {
+		return Blue;
+	}
+	public void setBlue(int blue) {
+		Blue = blue;
+	}
+	public int getxCoordinate() {
+		return xCoordinate;
+	}
+	public void setxCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+	public int getyCoordinate() {
+		return yCoordinate;
+	}
+	public void setyCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
+	}
+	@Override
+	public String toString() {
+		return "Picture [Alpha=" + Alpha + ", Red=" + Red + ", Green=" + Green + ", Blue=" + Blue + ", xCoordinate="
+				+ xCoordinate + ", yCoordinate=" + yCoordinate + "]";
+	}
+	public Picture(int alpha, int red, int green, int blue, int xCoordinate, int yCoordinate) {
+		super();
+		Alpha = alpha;
+		Red = red;
+		Green = green;
+		Blue = blue;
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
+	}
+	
+	
+}

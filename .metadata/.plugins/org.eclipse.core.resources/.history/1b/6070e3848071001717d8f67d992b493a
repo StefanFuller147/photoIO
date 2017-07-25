@@ -1,0 +1,12 @@
+package photosV2;
+
+public class PhotoReaderV2 {
+	public static void main(String[] args) {
+		photoReaderV2("photosV2/test.jpg");
+	}
+
+}
+
+public static void photoReaderV2(String path){
+	
+}

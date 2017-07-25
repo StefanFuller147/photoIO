@@ -1,0 +1,17 @@
+package photosV2;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+public class PhotoReaderV2 {
+	public static void main(String[] args) {
+		photoReaderV2("photosV2/test.jpg");
+	}
+
+	public static void photoReaderV2(String path) {
+		BufferedImage img = null;
+		File f = null;
+		int x = 0;
+		int y = 0;
+	}
+}
