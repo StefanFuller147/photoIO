@@ -1,0 +1,143 @@
+package photos;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+
+import pictureObj.Pixel;
+
+public class PhotoReader {
+	private static Charset UTF8 = Charset.forName("UTF-8");
+	static int imgWidth = 0;
+	static int imgHeight = 0;
+	public static void main(String[] args) throws IOException {
+		
+		photoReader("photos/testCat.jpg");
+
+	}
+
+	public static void writesPhotosValueToFile(ArrayList<Pixel> listOfPixels) throws IOException {
+		PrintWriter writer = new PrintWriter("outputfiles/test.txt", "UTF8");
+		int i = 0;
+		try {
+				writer.print(imgHeight + ","+imgWidth);
+				writer.println();
+				writer.print("Alpha" + "\t"  + "Red" + "\t" + "\t" + "Green" + "\t" +  "Blue" + "\t"+ "\t" + "X" + "\t" + "    Y");
+				writer.println();
+				writer.println("-------------------------------------------");
+			for (int j = 0; j < listOfPixels.size(); j++) {
+				writer.print(listOfPixels.get(i).getAlpha() + ",");
+//				writer.print("\t" + "\t");
+				writer.print(listOfPixels.get(i).getRed()  + ",");
+//				writer.print("\t" + "\t");
+				writer.print(listOfPixels.get(i).getGreen() + ",");
+//				writer.print("\t" + "\t");				
+				writer.print(listOfPixels.get(i).getBlue() + ",");
+//				writer.print("\t" + "\t");				
+				writer.print(listOfPixels.get(i).getxCoordinate() + ",");
+//				writer.print("\t" + "\t");				
+				writer.print(listOfPixels.get(i).getyCoordinate());
+				writer.println();
+				i++;
+			}
+
+		} finally {
+			writer.close();
+		}
+
+	}
+
+	public static void photoReader(String path) {
+		ArrayList<Pixel> listOfPixels = new ArrayList<>();
+		BufferedImage img = null;
+		File f = null;
+		Pixel p = null;
+		int x = 0;
+		int y = 0;
+
+		// reads the image
+		try {
+			Scanner kb = new Scanner(System.in);
+			System.out.println("Enter file name/path");
+			String path1 = kb.next();
+			f = new File(path1);
+			img = ImageIO.read(f);
+
+		} catch (IOException e) {
+			System.out.println("Failure from photo reader");
+			System.out.println(e);
+		}
+
+		// gets the images width
+		imgWidth = img.getWidth();
+		System.out.println("Width: " + imgWidth);
+
+		// gets the images height
+		imgHeight = img.getHeight();
+		System.out.println("Height: " + imgHeight);
+		System.out.println();
+		System.out.println();
+
+		int pixel = 0;
+		int a = 0;
+		int r = 0;
+		int g = 0;
+		int b = 0;
+
+		do {
+			try{
+			for (int i = 0; i < img.getWidth(); i++) {
+				p = new Pixel();	
+				pixel = img.getRGB(x, y);
+                
+                // gets the alpha values of the pixel
+                a = (pixel >> 24) & 0xFF;
+
+                // gets the red values of the pixel
+                r = (pixel >> 16) & 0xFF;
+
+                // gets the green values of the pixel
+                g = (pixel >> 8) & 0xFF;
+
+                // gets the blue values of the pixel
+                b = pixel & 0xFF;
+                
+                p.setAlpha(a);
+                p.setBlue(b);
+                p.setGreen(g);
+                p.setRed(r);
+                p.setxCoordinate(x);
+                p.setyCoordinate(y);
+                
+                
+
+				listOfPixels.add(p);
+
+				x++;
+
+				if(x == img.getWidth()){
+					x = 0;
+					y++;
+				}			
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			break;
+		}
+		
+			}while (y - 1 < img.getHeight());
+		
+		try {
+			writesPhotosValueToFile(listOfPixels);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+			
+	}
+}

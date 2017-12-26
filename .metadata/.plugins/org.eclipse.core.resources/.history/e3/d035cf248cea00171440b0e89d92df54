@@ -1,0 +1,13 @@
+package photoConverter;
+
+import java.awt.image.BufferedImage;
+
+public class Convert {
+	public static void main(String[] args) {
+		invertImage("reconstructionTest.jpg");
+	}
+	
+	public static void invertImage(String imageName){
+		BufferedImage inputFile = null;
+	}
+}

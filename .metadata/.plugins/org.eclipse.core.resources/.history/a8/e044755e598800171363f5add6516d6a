@@ -1,0 +1,19 @@
+package checkoutMyPackage;
+
+public class Fibonacci {
+	public static void main(String[] args) {
+		int num1 = 0;
+		int num2 = 1;
+		int placeHolder;
+		
+		for (int i = 0; i < 100; i++) {
+			placeHolder = num1+num2;
+			num1 = num2;
+			num2 = placeHolder;
+			System.out.println(placeHolder);
+			
+		}
+
+
+	}
+}

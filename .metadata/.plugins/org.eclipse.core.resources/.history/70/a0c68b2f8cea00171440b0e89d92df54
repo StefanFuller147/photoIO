@@ -1,0 +1,22 @@
+package photoConverter;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
+public class Convert {
+	public static void main(String[] args) {
+		invertImage("reconstructionTest.jpg");
+	}
+	
+	public static void invertImage(String imageName){
+		BufferedImage inputFile = null;
+		try{
+			inputFile = ImageIO.read(new File(imageName));
+		}catch(Exception e){
+			System.out.println("ERROR IN FIRST TRY CATCH BLOCK OF INVERT IMAGE METHOD");
+			e.getMessage();
+		}
+	}
+}

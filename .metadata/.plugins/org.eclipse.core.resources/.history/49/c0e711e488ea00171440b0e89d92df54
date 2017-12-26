@@ -1,0 +1,88 @@
+package photoAssembler;
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+
+public class PhotoReconstructor {
+	public static void main(String[] args) {
+		fileReader();
+	}
+
+	public static void fileReader() {
+		ArrayList<String> fileLines = new ArrayList<>();
+		try {
+			FileReader fr = new FileReader("outputFiles/test.txt");
+			BufferedReader buf = new BufferedReader(fr);
+			String line;
+			while ((line = buf.readLine()) != null) {
+				fileLines.add(line);
+
+			}
+			System.out.println("Lines in Array: " + fileLines.size());
+			System.out.println("line values: " + fileLines.get(6).toString());
+			buf.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage() + " Error in file reader method");
+		}
+		try {
+			photoReconstructor(fileLines, "photos/reconstructionTest.jpg");
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void photoReconstructor(ArrayList<String> fileLines, String path) throws IOException {
+		int x = 0;
+		int y = 0;
+		path = "photos/reconstructionTest2.jpg";
+		String[] pixelStrings = new String[6];
+		String[] heightAndWidth = new String[2];
+		
+		File f = new File(path);
+		int alpha = 0;
+		int red = 0;
+		int blue = 0;
+		int green = 0;
+		while (true) {
+			try {
+				
+				heightAndWidth = fileLines.get(0).split(",");
+				int imageHeight = Integer.parseInt(heightAndWidth[0]);
+				int imageWidth = Integer.parseInt(heightAndWidth[1]);
+				BufferedImage img = new BufferedImage(imageWidth, imageHeight, 2);
+				for (int i = 3; i < fileLines.size(); i++) {
+					pixelStrings = fileLines.get(i).split(",");
+					
+					
+					alpha = Integer.parseInt(pixelStrings[0]);
+					System.out.println(alpha);
+					red = Integer.parseInt(pixelStrings[1]);
+					green = Integer.parseInt(pixelStrings[2]);
+					blue = Integer.parseInt(pixelStrings[3]);
+					x = Integer.parseInt(pixelStrings[4]);
+					y = Integer.parseInt(pixelStrings[5]);
+					
+					Color color = new Color(red, green, blue, alpha);
+					
+					img.setRGB(x, y, color.getRGB());
+
+					
+				}
+				ImageIO.write(img, "jpg", f);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				break;
+			}
+		}
+
+	}
+}
